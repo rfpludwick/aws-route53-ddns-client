@@ -16,7 +16,7 @@ You'll want to copy the following files in the `config/` directory:
 ```bash
 cd config
 cp aws_credentials.dist.ini aws_credentials.ini
-cd config.dist.ini config.ini
+cp config.dist.ini config.ini
 ```
 
 You'll want to fill in the copied INI files with your own values, which will be described in the **Setup** link below.
