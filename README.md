@@ -9,15 +9,18 @@ The recommended installation method is via Composer:
 
 ```bash
 cd /path/to/where/this/will/live
-../path/to/composer install rfpludwick-aws-route53-ddns-php-client
+../path/to/composer install rfpludwick/aws-route53-ddns-php-client
 ```
 
 You'll want to copy the following files in the `config/` directory:
 
-- `aws_credentials.dist.ini` => `aws_credentials.ini`
-- `config.dist.ini` => `config.ini`
+```bash
+cd config
+cp aws_credentials.dist.ini aws_credentials.ini
+cd config.dist.ini config.ini
+```
 
-The values for your own INI files will be described in the **Setup** link below.
+You'll want to fill in the copied INI files with your own values, which will be described in the **Setup** link below.
 
 # Setup
 
