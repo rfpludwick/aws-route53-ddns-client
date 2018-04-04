@@ -5,11 +5,10 @@
 
 # Installation
 
-The recommended installation method is via Composer:
+The recommended installation method is via `git`:
 
 ```bash
-cd /path/to/where/this/will/live
-../path/to/composer require rfpludwick/aws-route53-ddns-php-client
+git clone https://github.com/rfpludwick/aws-route53-ddns-php-client
 ```
 
 You'll want to copy the following files in the `config/` directory:
