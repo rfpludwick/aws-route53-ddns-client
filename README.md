@@ -9,7 +9,7 @@ The recommended installation method is via Composer:
 
 ```bash
 cd /path/to/where/this/will/live
-../path/to/composer install rfpludwick/aws-route53-ddns-php-client
+../path/to/composer require rfpludwick/aws-route53-ddns-php-client
 ```
 
 You'll want to copy the following files in the `config/` directory:
