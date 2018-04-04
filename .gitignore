@@ -1,0 +1,5 @@
+.idea/*
+/vendor/
+composer.lock
+config/aws_credentials.ini
+config/config.ini

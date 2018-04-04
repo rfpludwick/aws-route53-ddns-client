@@ -1,0 +1,43 @@
+{
+  "name": "rfpludwick/aws-route53-ddns-php-client",
+  "description": "A PHP DDNS client for AWS' Route 53.",
+  "type": "library",
+  "keywords": [
+    "ddns",
+    "dns",
+    "aws",
+    "route53"
+  ],
+  "homepage": "https://github.com/rfpludwick/aws-route53-ddns-php-client",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Robert F.P. Ludwick",
+      "email": "rfpludwick@gmail.com",
+      "role": "Lead"
+    }
+  ],
+  "support": {
+    "email": "rfpludwick@gmail.com",
+    "issues": "https://github.com/rfpludwick/aws-route53-ddns-php-client/issues",
+    "wiki": "https://github.com/rfpludwick/aws-route53-ddns-php-client/wiki",
+    "source": "https://github.com/rfpludwick/aws-route53-ddns-php-client"
+  },
+  "require": {
+    "php": ">=5.5",
+    "aws/aws-sdk-php": "^3.52",
+    "monolog/monolog": "^1.23",
+    "guzzlehttp/guzzle": "^6.3"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "RFPLudwick\\AWS\\DDNS\\": "src/"
+    }
+  },
+  "scripts": {
+    "execute": "./cli"
+  }
+}
