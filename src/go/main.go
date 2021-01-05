@@ -28,8 +28,6 @@ func exec() int {
 		log.Fatal(err)
 	}
 
-	fmt.Println(directory)
-
 	// Read configuration
 	config, err := ini.ShadowLoad(directory + "/config/config.ini")
 
