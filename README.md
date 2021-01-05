@@ -34,6 +34,8 @@ script detailed on that page, you can use this repository.
 If you want to run the Go version of the client, make sure you have Go installed and then:
 
 ```bash
+go get -u github.com/aws/aws-sdk-go/...
+go get gopkg.in/ini.v1
 go build -o cli src/go/*
 ```
 

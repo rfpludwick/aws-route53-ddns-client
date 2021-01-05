@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/awserr"
@@ -20,8 +21,17 @@ func main() {
 }
 
 func exec() int {
+	// Get executable directory
+	directory, err := filepath.Abs(filepath.Dir(os.Args[0]))
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println(directory)
+
 	// Read configuration
-	config, err := ini.ShadowLoad("config/config.ini")
+	config, err := ini.ShadowLoad(directory + "/config/config.ini")
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Unable to read configuration ini:", err)
@@ -108,7 +118,7 @@ func exec() int {
 	// Make & handle the Route53 request (after the IP address has been collected)
 	awsSession, err := session.NewSession(&aws.Config{
 		Region:      aws.String("us-east-1"), // Route 53 requires this region,
-		Credentials: credentials.NewSharedCredentials("config/aws_credentials.ini", config.Section("aws").Key("profile").String()),
+		Credentials: credentials.NewSharedCredentials(directory+"/config/aws_credentials.ini", config.Section("aws").Key("profile").String()),
 	})
 
 	if err != nil {

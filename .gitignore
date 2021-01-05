@@ -1,5 +1,6 @@
 .idea/*
-/vendor/
-composer.lock
+cli
 config/aws_credentials.ini
 config/config.ini
+ddns.log
+vendor/
