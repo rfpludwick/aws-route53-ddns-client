@@ -8,7 +8,7 @@
     "aws",
     "route53"
   ],
-  "homepage": "https://github.com/rfpludwick/aws-route53-ddns-php-client",
+  "homepage": "https://github.com/rfpludwick/aws-route53-ddns-client",
   "license": "Apache-2.0",
   "authors": [
     {
@@ -19,9 +19,9 @@
   ],
   "support": {
     "email": "rfpludwick@gmail.com",
-    "issues": "https://github.com/rfpludwick/aws-route53-ddns-php-client/issues",
-    "wiki": "https://github.com/rfpludwick/aws-route53-ddns-php-client/wiki",
-    "source": "https://github.com/rfpludwick/aws-route53-ddns-php-client"
+    "issues": "https://github.com/rfpludwick/aws-route53-ddns-client/issues",
+    "wiki": "https://github.com/rfpludwick/aws-route53-ddns-client/wiki",
+    "source": "https://github.com/rfpludwick/aws-route53-ddns-client"
   },
   "require": {
     "php": ">=5.5",
@@ -34,7 +34,7 @@
   },
   "autoload": {
     "psr-4": {
-      "RFPLudwick\\AWS\\DDNS\\": "src/"
+      "RFPLudwick\\AWS\\DDNS\\": "src/php/"
     }
   },
   "scripts": {
