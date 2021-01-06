@@ -38,7 +38,7 @@ func exec() int {
 	}
 
 	// Setup logging
-	logfile, err := os.OpenFile(config.Section("logger").Key("file").Value(), (os.O_CREATE | os.O_APPEND | os.O_WRONLY), 0644)
+	logfile, err := os.OpenFile(directory+"/"+config.Section("logger").Key("file").Value(), (os.O_CREATE | os.O_APPEND | os.O_WRONLY), 0644)
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Unable to open logfile:", err)
