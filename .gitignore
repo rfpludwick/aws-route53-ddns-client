@@ -1,6 +1,8 @@
-.idea/*
+.devcontainer/*-local.sh
+.devcontainer/.bash-config/
 cli
 config/aws_credentials.ini
 config/config.ini
-ddns.log
+src/go/bin/
+src/go/pkg/
 vendor/

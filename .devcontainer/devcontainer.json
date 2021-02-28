@@ -1,0 +1,17 @@
+{
+	"image": "mcr.microsoft.com/vscode/devcontainers/base:ubuntu-20.04",
+	"postCreateCommand": "bash .devcontainer/provision.sh",
+	"initializeCommand": "bash .devcontainer/initialize.sh",
+	"containerEnv": {
+		"GOPATH": "${containerWorkspaceFolder}/src/go"
+	},
+	"extensions": [
+		"github.vscode-pull-request-github",
+		"eamodio.gitlens",
+		"golang.go",
+		"timonwong.shellcheck",
+		"davidanson.vscode-markdownlint",
+		"bmewburn.vscode-intelephense-client",
+		"felixfbecker.php-debug"
+	]
+}
