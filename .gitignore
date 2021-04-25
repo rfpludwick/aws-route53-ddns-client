@@ -1,8 +1,8 @@
 .devcontainer/*-local.sh
 .devcontainer/.bash-config/
+aws-route53-ddns-client
 cli
 config/aws_credentials.ini
 config/config.ini
 src/go/bin/
-src/go/pkg/
 vendor/
