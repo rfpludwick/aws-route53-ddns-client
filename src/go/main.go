@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -16,20 +17,36 @@ import (
 	"gopkg.in/ini.v1"
 )
 
+var (
+	flagConfigurationDirectory string
+)
+
 func main() {
 	os.Exit(exec())
 }
 
 func exec() int {
+	// Parse CLI flags
+	flag.StringVar(&flagConfigurationDirectory, "config-dir", "", "Configuration directory to use")
+	flag.Parse()
+
 	// Get executable directory
-	directory, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	workingDirectory, err := filepath.Abs(filepath.Dir(os.Args[0]))
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	var configurationDirectory string
+
+	if flagConfigurationDirectory == "" {
+		configurationDirectory = workingDirectory + "/config"
+	} else {
+		configurationDirectory = flagConfigurationDirectory
+	}
+
 	// Read configuration
-	config, err := ini.ShadowLoad(directory + "/config/config.ini")
+	config, err := ini.ShadowLoad(configurationDirectory + "/config.ini")
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Unable to read configuration ini:", err)
@@ -38,7 +55,7 @@ func exec() int {
 	}
 
 	// Setup logging
-	logfile, err := os.OpenFile(directory+"/"+config.Section("logger").Key("file").Value(), (os.O_CREATE | os.O_APPEND | os.O_WRONLY), 0644)
+	logfile, err := os.OpenFile(workingDirectory+"/"+config.Section("logger").Key("file").Value(), (os.O_CREATE | os.O_APPEND | os.O_WRONLY), 0644)
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "Unable to open logfile:", err)
@@ -116,7 +133,7 @@ func exec() int {
 	// Make & handle the Route53 request (after the IP address has been collected)
 	awsSession, err := session.NewSession(&aws.Config{
 		Region:      aws.String("us-east-1"), // Route 53 requires this region,
-		Credentials: credentials.NewSharedCredentials(directory+"/config/aws_credentials.ini", config.Section("aws").Key("profile").String()),
+		Credentials: credentials.NewSharedCredentials(configurationDirectory+"/aws_credentials.ini", config.Section("aws").Key("profile").String()),
 	})
 
 	if err != nil {

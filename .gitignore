@@ -4,4 +4,5 @@ cli
 config/aws_credentials.ini
 config/config.ini
 src/go/bin/
+src/go/ddns.log
 vendor/
