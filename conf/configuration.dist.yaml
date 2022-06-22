@@ -1,0 +1,11 @@
+---
+
+get_ip_address_host: "https://api.ipify.org"
+sites:
+  - hosted_zone_id: ""
+    ttl: 300
+    ipv6: false
+    comment: AWS Route 53 DDNS Client
+    record_names:
+      - ""
+      - ""

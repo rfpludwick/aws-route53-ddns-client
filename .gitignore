@@ -1,8 +1,4 @@
 .devcontainer/*-local.sh
 aws-route53-ddns-client
-cli
-config/aws_credentials.ini
-config/config.ini
-src/go/bin/
-src/go/ddns.log
-vendor/
+conf/configuration.yaml
+bin/
