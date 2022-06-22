@@ -10,9 +10,7 @@
 		"golang.go",
 		"timonwong.shellcheck",
 		"davidanson.vscode-markdownlint",
-		"redhat.vscode-yaml",
-		"bmewburn.vscode-intelephense-client",
-		"felixfbecker.php-debug"
+		"redhat.vscode-yaml"
 	],
 	"remoteEnv": {
 		"TZ": "America/Los_Angeles",
