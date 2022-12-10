@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -47,15 +47,15 @@ func main() {
 		httpResponse, err := http.Get(cf.GetIpAddressHost)
 
 		if err != nil {
-			log.Println("Error retrieving IP address:", err)
+			log.Fatal("Error retrieving IP address:", err)
 		}
 
 		defer httpResponse.Body.Close()
 
-		responseBodyIPAddress, err := ioutil.ReadAll(httpResponse.Body)
+		responseBodyIPAddress, err := io.ReadAll(httpResponse.Body)
 
 		if err != nil {
-			log.Println("Error reading IP address response:", err)
+			log.Fatal("Error reading IP address response:", err)
 		}
 
 		c <- string(responseBodyIPAddress)
@@ -73,7 +73,7 @@ func main() {
 		} else {
 			route53Type = aws.String("A")
 		}
-		// todo iterate through sites
+
 		for _, recordName := range cfs.RecordNames {
 			route53Changes = append(route53Changes, &route53.Change{
 				Action: aws.String("UPSERT"),

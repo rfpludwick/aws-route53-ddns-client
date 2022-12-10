@@ -1,5 +1,7 @@
 {
 	"php.suggest.basic": false,
 	"window.title": "${activeEditorMedium}${dirty}${separator}AWS Route53 DDNS Client${separator}${appName}",
-	"go.toolsGopath": "/usr/lib/go"
+	"cSpell.words": [
+		"DDNS"
+	]
 }
