@@ -13,7 +13,11 @@
 		"mrmlnc.vscode-json5"
 	],
 	"remoteEnv": {
+		"AWS_PROFILE": "personal-terraform",
 		"VAULT_ADDR": "${localEnv:VAULT_ADDR}",
 		"VAULT_GITHUB_TOKEN": "${localEnv:VAULT_GITHUB_TOKEN}"
-	}
+	},
+	"mounts": [
+		"source=${env:HOME}${env:USERPROFILE}/.aws,target=/home/vscode/.aws,type=bind"
+	]
 }
