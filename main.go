@@ -1,16 +1,19 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"flag"
 	"io"
 	"log"
 	"net/http"
 	"os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/route53"
+	"github.com/aws/aws-sdk-go-v2/aws"
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/route53"
+	"github.com/aws/aws-sdk-go-v2/service/route53/types"
+	"github.com/aws/smithy-go"
 	"gopkg.in/yaml.v3"
 )
 
@@ -50,7 +53,11 @@ func main() {
 			log.Fatal("Error retrieving IP address:", err)
 		}
 
-		defer httpResponse.Body.Close()
+		defer func() {
+			if err := httpResponse.Body.Close(); err != nil {
+				log.Fatal("Error closing HTTP response body:", err)
+			}
+		}()
 
 		responseBodyIPAddress, err := io.ReadAll(httpResponse.Body)
 
@@ -65,23 +72,23 @@ func main() {
 
 	// Prepare the Route53 changes
 	for _, cfs := range cf.Sites {
-		var route53Changes []*route53.Change
-		var route53Type *string
+		var route53Changes []types.Change
+		var route53Type types.RRType
 
 		if cfs.Ipv6 {
-			route53Type = aws.String("AAAA")
+			route53Type = types.RRTypeAaaa
 		} else {
-			route53Type = aws.String("A")
+			route53Type = types.RRTypeA
 		}
 
 		for _, recordName := range cfs.RecordNames {
-			route53Changes = append(route53Changes, &route53.Change{
-				Action: aws.String("UPSERT"),
-				ResourceRecordSet: &route53.ResourceRecordSet{
+			route53Changes = append(route53Changes, types.Change{
+				Action: types.ChangeActionUpsert,
+				ResourceRecordSet: &types.ResourceRecordSet{
 					Name: aws.String(recordName),
 					TTL:  aws.Int64(cfs.Ttl),
 					Type: route53Type,
-					ResourceRecords: []*route53.ResourceRecord{
+					ResourceRecords: []types.ResourceRecord{
 						{
 							Value: aws.String(ipAddress),
 						},
@@ -91,7 +98,7 @@ func main() {
 		}
 
 		route53Request := &route53.ChangeResourceRecordSetsInput{
-			ChangeBatch: &route53.ChangeBatch{
+			ChangeBatch: &types.ChangeBatch{
 				Changes: route53Changes,
 				Comment: aws.String(cfs.Comment),
 			},
@@ -99,32 +106,20 @@ func main() {
 		}
 
 		// Make & handle the Route53 request (after the IP address has been collected)
-		awsSession, err := session.NewSession(&aws.Config{
-			Region: aws.String("us-east-1"), // Route 53 requires this region,
-		})
+		ctx := context.Background()
+		sdkConfig, err := config.LoadDefaultConfig(ctx, config.WithRegion("us-east-1")) // global region
 
 		if err != nil {
-			log.Fatal("Error instantiating AWS session:", err)
+			log.Fatal("Error loading AWS configuration:", err)
 		}
 
-		route53Client := route53.New(awsSession)
+		route53Client := route53.NewFromConfig(sdkConfig)
 
-		if _, err = route53Client.ChangeResourceRecordSets(route53Request); err != nil {
-			if aerr, ok := err.(awserr.Error); ok {
-				switch aerr.Code() {
-				case route53.ErrCodeNoSuchHostedZone:
-					log.Println(route53.ErrCodeNoSuchHostedZone, aerr.Error())
-				case route53.ErrCodeNoSuchHealthCheck:
-					log.Println(route53.ErrCodeNoSuchHealthCheck, aerr.Error())
-				case route53.ErrCodeInvalidChangeBatch:
-					log.Println(route53.ErrCodeInvalidChangeBatch, aerr.Error())
-				case route53.ErrCodeInvalidInput:
-					log.Println(route53.ErrCodeInvalidInput, aerr.Error())
-				case route53.ErrCodePriorRequestNotComplete:
-					log.Println(route53.ErrCodePriorRequestNotComplete, aerr.Error())
-				default:
-					log.Fatal(aerr.Error())
-				}
+		if _, err = route53Client.ChangeResourceRecordSets(ctx, route53Request); err != nil {
+			var apiErr smithy.APIError
+
+			if errors.As(err, &apiErr) {
+				log.Fatal(apiErr.ErrorMessage())
 			} else {
 				log.Fatal(err.Error())
 			}
