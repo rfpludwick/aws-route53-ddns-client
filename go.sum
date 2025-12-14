@@ -166,6 +166,8 @@ github.com/aws/aws-sdk-go-v2/service/route53 v1.61.1 h1:ik9tMw+xWZqzffOtGH3PfV0Y
 github.com/aws/aws-sdk-go-v2/service/route53 v1.61.1/go.mod h1:JRqmldxIPU6uck5bcFS8ExwwG2mUwfy+jiUmismOxJs=
 github.com/aws/aws-sdk-go-v2/service/route53 v1.61.2 h1:AYkXtY/AH76SbJPNO9ZYOBK8201QGt2NxH4yjdrRt3g=
 github.com/aws/aws-sdk-go-v2/service/route53 v1.61.2/go.mod h1:6EZUGGNLPLh5Unt30uEoA+KQcByERfXIkax9qrc80nA=
+github.com/aws/aws-sdk-go-v2/service/route53 v1.62.0 h1:80pDB3Tpmb2RCSZORrK9/3iQxsd+w6vSzVqpT1FGiwE=
+github.com/aws/aws-sdk-go-v2/service/route53 v1.62.0/go.mod h1:6EZUGGNLPLh5Unt30uEoA+KQcByERfXIkax9qrc80nA=
 github.com/aws/aws-sdk-go-v2/service/signin v1.0.2 h1:MxMBdKTYBjPQChlJhi4qlEueqB1p1KcbTEa7tD5aqPs=
 github.com/aws/aws-sdk-go-v2/service/signin v1.0.2/go.mod h1:iS6EPmNeqCsGo+xQmXv0jIMjyYtQfnwg36zl2FwEouk=
 github.com/aws/aws-sdk-go-v2/service/signin v1.0.3 h1:d/6xOGIllc/XW1lzG9a4AUBMmpLA9PXcQnVPTuHHcik=
