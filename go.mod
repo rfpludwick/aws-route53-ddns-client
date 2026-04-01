@@ -7,7 +7,7 @@ toolchain go1.26.1
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.5
 	github.com/aws/aws-sdk-go-v2/config v1.32.13
-	github.com/aws/aws-sdk-go-v2/service/route53 v1.62.4
+	github.com/aws/aws-sdk-go-v2/service/route53 v1.62.5
 	github.com/aws/smithy-go v1.24.2
 	gopkg.in/yaml.v3 v3.0.1
 )
