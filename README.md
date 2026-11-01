@@ -1,8 +1,8 @@
 # About
 
 **aws-route53-ddns-client** is an AWS Route 53 DDNS client written in Go. If you
-can run Go, need a DDNS client, and are willing to use AWS Route 53, then this may
-work for you.
+can run Go, need a DDNS client, and are willing to use AWS Route 53, then this
+may work for you.
 
 ## Installation
 
